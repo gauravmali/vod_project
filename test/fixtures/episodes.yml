@@ -3,7 +3,11 @@
 one:
   title: MyString
   plot: MyText
+  number: 1
+  season: seasons(:one)
 
 two:
   title: MyString
   plot: MyText
+  number: 2
+  season: seasons(:one)

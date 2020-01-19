@@ -10,7 +10,7 @@ class Movie < ApplicationRecord
   private
 
   def clear_cache
-    Rails.cache.delete('seasons_cache')
+    Rails.cache.delete('movies_cache')
     Rails.cache.delete('movies_and_seasons_cache')
   end
 end
