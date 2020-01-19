@@ -18,5 +18,5 @@ Episode.create!([
 user = User.create!({ email: 'gaurav.malik2034@gmail.com' })
 
 Purchase.create!([
-                   {price: 2.99, quality: 'HD', user: user, season: seasons.first }
+                   { price: 2.99, quality: 'HD', user: user, season: seasons.first, validity: (Time.now.utc + 2.days) }
                  ])

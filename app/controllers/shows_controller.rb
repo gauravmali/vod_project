@@ -1,0 +1,46 @@
+class ShowsController < ApplicationController
+  # before_action :set_clock, only: [:show, :edit, :update, :destroy]
+
+  # Returns the movies, ordered by creation.
+  def movies
+    shows_movies_service.perform
+  end
+
+  def seasons
+    shows_seasons_service.perform
+  end
+
+  def movies_and_seasons
+    shows_movies_and_seasons_service.perform
+  end
+
+  def purchase
+    shows_purchase_service.purchase
+  end
+
+  def user_library
+    binding.pry
+  end
+
+  private
+
+  def shows_movies_service
+    @shows_service = ShowsService.new({type: 'movies'})
+  end
+
+  def shows_seasons_service
+    @shows_service = ShowsService.new({type: 'seasons'})
+  end
+
+  def shows_movies_and_seasons_service
+    @shows_service = ShowsService.new({type: 'movies_and_seasons'})
+  end
+
+  def shows_purchase_service
+    @shows_service = ShowsService.new(purchase_params)
+  end
+
+  def purchase_params
+    params.permit(:user_id, :type, :title, :quality, :price, :season_number)
+  end
+end

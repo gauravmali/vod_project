@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/movies', to: 'shows#movies'
+  get '/seasons', to: 'shows#seasons'
+  get '/movies-and-seasons', to: 'shows#movies_and_seasons'
+  post '/purchase', to: 'shows#purchase'
+  get '/library', to: 'shows#user_library'
 end
