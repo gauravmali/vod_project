@@ -1,4 +1,6 @@
 class Purchase < ApplicationRecord
+  validates_presence_of :price, :quality
+
   belongs_to :user
   belongs_to :movie, optional: true
   belongs_to :season, optional: true
