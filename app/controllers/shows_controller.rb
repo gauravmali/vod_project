@@ -25,15 +25,15 @@ class ShowsController < ApplicationController
   private
 
   def shows_movies_service
-    @shows_service = ShowsService.new({type: 'movies'})
+    @shows_service = ShowsService.new(type: 'movies')
   end
 
   def shows_seasons_service
-    @shows_service = ShowsService.new({type: 'seasons'})
+    @shows_service = ShowsService.new(type: 'seasons')
   end
 
   def shows_movies_and_seasons_service
-    @shows_service = ShowsService.new({type: 'movies_and_seasons'})
+    @shows_service = ShowsService.new(type: 'movies_and_seasons')
   end
 
   def shows_purchase_service

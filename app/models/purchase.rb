@@ -8,7 +8,7 @@ class Purchase < ApplicationRecord
   before_create :save_validity
 
   def alive?
-    self.validity > Time.now.utc
+    validity > Time.now.utc
   end
 
   def save_validity

@@ -42,14 +42,14 @@ class ShowsService
     case type
     when 'movie'
       @movie = Movie.where(title: params[:title]).last
-      if user.movies.map {|rec| rec.title}.include? params[:title]
+      if user.movies.map(&:title).include? params[:title]
         movie_validity?
       else
         false
       end
     when 'season'
       @season = Season.where(title: params[:title], number: params[:season_number]).last
-      if user.seasons.map {|rec| {rec.title => rec.number}}.include? ({params[:title] => params[:season_number].to_i})
+      if user.seasons.map { |rec| { rec.title => rec.number } }.include? ({ params[:title] => params[:season_number].to_i })
         season_validity?
       else
         false
@@ -58,7 +58,7 @@ class ShowsService
   end
 
   def existing_show_response
-    @response = { status: 'failure', message: "#{ params[:type].upcase }: #{ params[:title].upcase } already exist in library" }
+    @response = { status: 'failure', message: "#{params[:type].upcase}: #{params[:title].upcase} already exist in library" }
   end
 
   def capture_purchase
@@ -66,8 +66,7 @@ class ShowsService
                      quality: params[:quality],
                      user: user,
                      season: season,
-                     movie: movie
-    )
+                     movie: movie)
   end
 
   def movie_validity?
@@ -85,7 +84,7 @@ class ShowsService
   end
 
   def success_response
-    @response = { status: 'success', message: "#{ params[:type].upcase }: #{ params[:title].upcase } purchase is successful" }
+    @response = { status: 'success', message: "#{params[:type].upcase}: #{params[:title].upcase} purchase is successful" }
   end
 
   def active_shows_response
@@ -98,10 +97,10 @@ class ShowsService
   def alive_shows_array
     @alive_shows = []
     user.purchases.each do |purchase|
-      alive_shows << {validity: purchase.validity, title: purchase.movie.title, plot: purchase.movie.plot} if
-          (purchase.alive? && purchase.movie.present?)
-      alive_shows << {validity: purchase.validity, title: purchase.season.title, plot: purchase.season.plot, season_number: purchase.season.number} if
-          (purchase.alive? && purchase.season.present?)
+      alive_shows << { validity: purchase.validity, title: purchase.movie.title, plot: purchase.movie.plot } if
+          purchase.alive? && purchase.movie.present?
+      alive_shows << { validity: purchase.validity, title: purchase.season.title, plot: purchase.season.plot, season_number: purchase.season.number } if
+          purchase.alive? && purchase.season.present?
     end
     alive_shows
   end

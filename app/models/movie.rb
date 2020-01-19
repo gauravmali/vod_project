@@ -5,7 +5,7 @@ class Movie < ApplicationRecord
   after_create :clear_cache
 
   has_many :purchases
-  has_many :users, :through => :purchases
+  has_many :users, through: :purchases
 
   private
 
