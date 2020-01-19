@@ -12,7 +12,9 @@ class EpisodeTest < ActiveSupport::TestCase
   end
 
   test "Clear cache" do
+    Rails.cache.fetch('seasons_cache', {})
+    Rails.cache.fetch('movies_and_seasons_cache', {})
     episode = episodes(:one)
-    assert_nil episode.send(:clear_cache)
+    episode.send(:clear_cache)
   end
 end

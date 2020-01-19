@@ -12,7 +12,9 @@ class MovieTest < ActiveSupport::TestCase
   end
 
   test "Clear cache" do
+    Rails.cache.fetch('movies_cache', {})
+    Rails.cache.fetch('movies_and_seasons_cache', {})
     movie = movies(:one)
-    assert_nil movie.send(:clear_cache)
+    movie.send(:clear_cache)
   end
 end

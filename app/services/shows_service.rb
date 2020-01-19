@@ -78,7 +78,6 @@ class ShowsService
   end
 
   def season_validity?
-
     user.purchases.each do |purchase|
       @purchase = purchase if purchase.season == season
     end
