@@ -3,15 +3,15 @@ class ShowsController < ApplicationController
 
   # Returns the movies, ordered by creation.
   def movies
-    shows_movies_service.perform
+    Rails.cache.fetch('movies_cache') { shows_movies_service.perform }
   end
 
   def seasons
-    shows_seasons_service.perform
+    Rails.cache.fetch('seasons_cache') { shows_seasons_service.perform }
   end
 
   def movies_and_seasons
-    shows_movies_and_seasons_service.perform
+    Rails.cache.fetch('movies_and_seasons_cache') { shows_movies_and_seasons_service.perform }
   end
 
   def purchase
