@@ -27,12 +27,19 @@ class ShowsService
     Rails.logger.error "ERROR: Record not found || Paras: #{params}"
   end
 
+  def library
+    @user = User.find(params[:user_id])
+    active_shows_response
+  rescue ActiveRecord::RecordNotFound
+    Rails.logger.error "ERROR: Record not found || Paras: #{params}"
+  end
+
   private
 
-  attr_reader :type, :params, :season, :movie
+  attr_reader :type, :params, :season, :movie, :alive_shows
 
   def existing_show?
-    case params[:type]
+    case type
     when 'movie'
       @movie = Movie.where(title: params[:title]).last
       if user.movies.map {|rec| rec.title}.include? params[:title]
@@ -80,5 +87,23 @@ class ShowsService
 
   def success_response
     @response = { status: 'success', message: "#{ params[:type].upcase }: #{ params[:title].upcase } purchase is successful" }
+  end
+
+  def active_shows_response
+    @response = {
+      status: 'success',
+      data: alive_shows_array.sort_by { |k| k[:validity] }
+    }
+  end
+
+  def alive_shows_array
+    @alive_shows = []
+    user.purchases.each do |purchase|
+      alive_shows << {validity: purchase.validity, title: purchase.movie.title, plot: purchase.movie.plot} if
+          (purchase.alive? && purchase.movie.present?)
+      alive_shows << {validity: purchase.validity, title: purchase.season.title, plot: purchase.season.plot, season_number: purchase.season.number} if
+          (purchase.alive? && purchase.season.present?)
+    end
+    alive_shows
   end
 end

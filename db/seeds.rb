@@ -9,10 +9,10 @@ seasons = Season.create!([
                          ])
 
 Episode.create!([
-                  { title: 'Crew Creation', plot: 'Crew is created for Money heist', season: seasons.first},
-                  { title: 'Bank Cameras', plot: 'Bank cameras are hacked for Money heist', season: seasons.first},
-                  { title: 'Count Drakula', plot: 'Introduction to Count Drakula', season: seasons.last},
-                  { title: 'Castle Black', plot: 'the one in the castle', season: seasons.last}
+                  { title: 'Crew Creation', plot: 'Crew is created for Money heist', number: 1, season: seasons.first},
+                  { title: 'Bank Cameras', plot: 'Bank cameras are hacked for Money heist', number: 2, season: seasons.first},
+                  { title: 'Count Drakula', plot: 'Introduction to Count Drakula', number: 1, season: seasons.last},
+                  { title: 'Castle Black', plot: 'the one in the castle', number: 2, season: seasons.last}
                 ])
 
 user = User.create!({ email: 'gaurav.malik2034@gmail.com' })

@@ -10,6 +10,7 @@ if @shows_service.seasons.present?
                       json.array! episodes do |episode|
                         json.title episode.title
                         json.plot episode.plot
+                        json.episode_number episode.number
                       end
                     end
                 end

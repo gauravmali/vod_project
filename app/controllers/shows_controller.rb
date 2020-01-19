@@ -19,7 +19,7 @@ class ShowsController < ApplicationController
   end
 
   def user_library
-    binding.pry
+    shows_library_service.library
   end
 
   private
@@ -40,7 +40,15 @@ class ShowsController < ApplicationController
     @shows_service = ShowsService.new(purchase_params)
   end
 
+  def shows_library_service
+    @shows_service = ShowsService.new(list_library_params)
+  end
+
   def purchase_params
     params.permit(:user_id, :type, :title, :quality, :price, :season_number)
+  end
+
+  def list_library_params
+    params.permit(:user_id)
   end
 end
